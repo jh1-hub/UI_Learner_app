@@ -25,6 +25,7 @@ export const GoodForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =
   const [tel, setTel] = useState('');
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // --- Validation Logic ---
   const validate = () => {
@@ -68,7 +69,10 @@ export const GoodForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      onComplete();
+      setIsSubmitting(true);
+      setTimeout(() => {
+        onComplete();
+      }, 600);
     }
   };
 
@@ -103,7 +107,7 @@ export const GoodForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="M3@zP7$q"
+                  placeholder="パスワードを入力"
                   className={`w-full pl-10 pr-12 py-3 border rounded-lg outline-none transition-colors ${errors.password ? 'border-red-500 bg-red-50' : 'border-slate-300 focus:border-blue-500'}`}
                 />
                 <button 
@@ -215,10 +219,15 @@ export const GoodForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =
         <div className="flex justify-center mt-10">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg shadow-md transform transition hover:-translate-y-0.5 flex items-center gap-2"
+            disabled={isSubmitting}
+            className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg shadow-md transform transition hover:-translate-y-0.5 flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
-            <Check size={20} />
-            {taskType === 'password' ? '設定する' : '登録する'}
+            {isSubmitting ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Check size={20} />
+            )}
+            {isSubmitting ? '処理中...' : (taskType === 'password' ? '設定する' : '登録する')}
           </button>
         </div>
 

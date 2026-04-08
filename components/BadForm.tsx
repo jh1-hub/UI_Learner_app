@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { TaskType } from '../types';
-import { Eye, AlertTriangle } from 'lucide-react';
+import { Eye, AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface Props {
   taskType: TaskType;
@@ -23,6 +23,7 @@ export const BadForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =>
   });
   
   const [agreed, setAgreed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -97,9 +98,14 @@ export const BadForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =>
   };
 
   const handleSubmit = () => {
-    if (taskType === 'email') handleEmailSubmit();
-    if (taskType === 'password') handlePasswordSubmit();
-    if (taskType === 'profile') handleProfileSubmit();
+    setIsSubmitting(true);
+    // Intentionally slow
+    setTimeout(() => {
+      setIsSubmitting(false);
+      if (taskType === 'email') handleEmailSubmit();
+      if (taskType === 'password') handlePasswordSubmit();
+      if (taskType === 'profile') handleProfileSubmit();
+    }, 1500);
   };
 
   const handleReset = () => {
@@ -274,8 +280,10 @@ export const BadForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =>
           {/* Trap: Submit is visually "Secondary" or "Disabled" looking */}
           <button 
             onClick={handleSubmit} 
-            className="bg-gray-500 text-gray-200 px-4 py-1 text-xs hover:bg-gray-600 border border-gray-600 shadow-inner"
+            disabled={isSubmitting}
+            className={`bg-gray-500 text-gray-200 px-4 py-1 text-xs hover:bg-gray-600 border border-gray-600 shadow-inner flex items-center gap-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
+            {isSubmitting ? <RefreshCw size={12} className="animate-spin" /> : null}
             Execute Submit
           </button>
 
