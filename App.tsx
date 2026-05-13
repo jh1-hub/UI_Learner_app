@@ -281,7 +281,7 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <main className="flex-grow relative overflow-auto">
+      <main className="flex-grow w-full">
         {/* Mistake Flash Overlay */}
         <AnimatePresence>
           {flashMistake && (
@@ -301,7 +301,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="h-full flex flex-col items-center justify-center p-6 text-center"
+              className="min-h-full flex flex-col items-center justify-center p-6 text-center"
             >
               <div className="max-w-3xl">
                 <motion.span 
@@ -352,7 +352,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="h-full flex flex-col items-center py-16 px-6"
+              className="min-h-full flex flex-col items-center py-16 px-6"
             >
               <h2 className="text-4xl font-bold mb-4 text-slate-800">実習テーマを選択</h2>
               <p className="text-slate-500 mb-12 text-lg">比較したい入力フォームのジャンルを選んでください。</p>
@@ -387,7 +387,7 @@ const App: React.FC = () => {
               key="order-selection"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="h-full flex flex-col items-center justify-center p-6"
+              className="min-h-full flex flex-col items-center justify-center p-6"
             >
               <div className="bg-white p-10 rounded-3xl shadow-xl border border-slate-100 max-w-2xl w-full text-center">
                 <h2 className="text-3xl font-bold mb-4">どちらから体験しますか？</h2>
@@ -424,7 +424,7 @@ const App: React.FC = () => {
               key="task-bad"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="h-full flex flex-col"
+              className="min-h-full flex flex-col"
             >
               <div className={`bg-yellow-100 border-b border-yellow-200 p-3 transition-all ${isInstructionMinimized ? 'h-12' : ''}`}>
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
@@ -457,7 +457,7 @@ const App: React.FC = () => {
               key="task-good"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="h-full flex flex-col"
+              className="min-h-full flex flex-col"
             >
               <div className="bg-blue-50 border-b border-blue-100 p-4">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
@@ -472,7 +472,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex-grow overflow-y-auto bg-slate-100 py-12">
+              <div className="flex-grow">
                 <GoodForm 
                   taskType={taskType} 
                   onComplete={() => completeTask('good')} 
@@ -487,7 +487,7 @@ const App: React.FC = () => {
               key="results"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="h-full py-12"
+              className="min-h-full py-12"
             >
               <Dashboard 
                 results={results} 

@@ -123,7 +123,7 @@ export const BadForm: React.FC<Props> = ({ taskType, onComplete, onMistake }) =>
   };
 
   return (
-    <div className="bad-ui-container p-6 bg-[#e0e0e0] text-[#333] h-full flex flex-col border-8 border-inset border-gray-400 overflow-y-auto font-serif">
+    <div className="bad-ui-container p-6 bg-[#e0e0e0] text-[#333] min-h-[500px] flex flex-col border-8 border-inset border-gray-400 font-serif">
       <div className="bg-blue-900 text-white p-2 mb-6 text-center">
          <h2 className="text-xl font-serif tracking-widest">ADMIN_CONSOLE_V1</h2>
       </div>
